@@ -149,10 +149,3 @@ Try at least three values of `reconstruction.lambda` for one blur. Record under-
 ## Optional deblurring network pointer
 
 Do not add another network to this lab. If you want to see a learned deblurring model, use the official DeepInverse examples and pretrained-model documentation after completing the classical experiments. The important question is: where is the prior represented in Tikhonov, TV and a trained network?
-
-## Fast checks
-
-```powershell
-uv run pytest -q
-uv run python -m cim_lab_5.main data.name=sample data.image_size=64 reconstruction.iterations=5 nullspace.trials=5 experiment_name=smoke_test
-```

@@ -79,10 +79,13 @@ def main(cfg: DictConfig):
         xs, ys = [], []
         for i in range(n):
             xi = image_from_item(ds[i]).unsqueeze(0).to(device)
-            measurement = A(xi)
+            raise NotImplementedError("Task")
             measurement += cfg.operator.noise_sigma * torch.randn_like(measurement)
             xs.append(xi.cpu())
-            ys.append(measurement.cpu())
+            raise NotImplementedError("Task")
+            ys.append()
+
+        # Export using torch.save
         torch.save(
             {"target": torch.cat(xs), "measurement": torch.cat(ys)},
             out / "training_pairs.pt",
