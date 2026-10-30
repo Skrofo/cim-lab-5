@@ -1,0 +1,48 @@
+# One complete experiment file: edit values here or override them on the command line.
+experiment_name: gaussian_tv
+seed: 0
+device: auto                 # auto (CUDA, then Apple MPS, then CPU), cpu, cuda, or mps
+
+mode: all                    # forward, nullspace, reconstruct, dataset, or all
+
+data:
+  name: sample               # sample, image filename stem (astronaut, cameraman, lib_left, meeting_house), pets, or celeba
+  root: data
+  image_size: 128
+  index: 0
+  download: true
+  split: trainval            # pets: trainval/test; celeba: train/valid/test/all
+  max_examples: 32           # used only by mode=dataset
+
+operator:
+  name: gaussian             # gaussian, motion, defocus, bayer, defocus_bayer, downsample
+  noise_sigma: 0.01
+  gaussian:
+    kernel_size: 17
+    sigma: 3.0
+  motion:
+    kernel_size: 21
+    angle_degrees: 25.0
+  defocus:
+    kernel_size: 17
+    radius: 6.0
+  downsample:
+    factor: 4                # included as a last resort; super-resolution is next week
+
+nullspace:
+  trials: 80
+  perturbation_scale: 0.35
+  measurement_tolerance: 0.025
+  highpass_sigma: 2.0
+
+reconstruction:
+  method: tv                 # tikhonov or tv
+  lambda: 0.02
+  iterations: 150
+  learning_rate: 0.08
+
+hydra:
+  run:
+    dir: outputs/${experiment_name}/${now:%Y-%m-%d_%H-%M-%S}
+  job:
+    chdir: true
