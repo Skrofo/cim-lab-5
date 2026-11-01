@@ -90,17 +90,17 @@ Repeat for motion, defocus, Bayer and defocus+Bayer. Explain why the best hidden
 
 We reconstruct by minimising
 
-\[
+$$
 \hat{x}=\arg\min_x \frac{1}{N_y}\|Ax-y\|_2^2+\lambda R(x).
-\]
+$$
 
 ### First-order Tikhonov
 
 The lab uses a quadratic smoothness prior:
 
-\[
+$$
 R_{\mathrm{Tik}}(x)=\frac{1}{N_x}\|\nabla x\|_2^2.
-\]
+$$
 
 This strongly penalises large gradients and therefore prefers globally smooth images.
 
@@ -108,19 +108,20 @@ This strongly penalises large gradients and therefore prefers globally smooth im
 
 The isotropic TV prior is
 
-\[
+$$
 R_{\mathrm{TV}}(x)=\frac{1}{N_x}\sum_{\mathbf p}
 \sqrt{(D_xx(\mathbf p))^2+(D_yx(\mathbf p))^2+\epsilon}.
-\]
+$$
 
 Unlike the squared Tikhonov penalty, TV can retain a smaller number of sharp edges.
 
 ### What is the adjoint?
 
-The forward operator \(A\) models how an image becomes a measurement. Its adjoint, \(A^\ast\), maps a measurement back into image space and obeys
-\[
+The forward operator $A$ models how an image becomes a measurement. Its adjoint, $A^\ast$, maps a measurement back into image space and obeys
+
+$$
 \langle Ax,y\rangle=\langle x,A^\ast y\rangle
-\]
+$$
 for all images \(x\) and measurements \(y\). You can think of it as “back-projecting” measurement values into the image grid. It is useful for visualising measurements and as a reconstruction starting point, but it is **not generally an inverse**: blur and missing colour samples cannot simply be undone by applying the adjoint. For a concise mathematical definition, see [Adjoint (linear algebra)](https://en.wikipedia.org/wiki/Adjoint_(linear_algebra)).
 
 ### Further reading
