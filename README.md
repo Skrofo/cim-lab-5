@@ -122,6 +122,7 @@ The forward operator $A$ models how an image becomes a measurement. Its adjoint,
 $$
 \langle Ax,y\rangle=\langle x,A^\ast y\rangle
 $$
+
 for all images $x$ and measurements $y$. You can think of it as “back-projecting” measurement values into the image grid. It is useful for visualising measurements and as a reconstruction starting point, but it is **not generally an inverse**: blur and missing colour samples cannot simply be undone by applying the adjoint. For a concise mathematical definition, see [Adjoint (linear algebra)](https://en.wikipedia.org/wiki/Adjoint_(linear_algebra)).
 
 ### Further reading
