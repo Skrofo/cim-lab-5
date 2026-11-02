@@ -79,17 +79,20 @@ def main(cfg: DictConfig):
         xs, ys = [], []
         for i in range(n):
             xi = image_from_item(ds[i]).unsqueeze(0).to(device)
-            raise NotImplementedError("Task")
-            measurement += cfg.operator.noise_sigma * torch.randn_like(measurement)
-            xs.append(xi.cpu())
-            raise NotImplementedError("Task")
-            ys.append()
+            yi = A(xi)
+            yi = yi + cfg.operator.noise_sigma * torch.randn_like(yi)
+            xs.append(xi.detach().cpu())
+            ys.append(yi.detach().cpu())
 
-        # Export using torch.save
-        torch.save(
-            {"target": torch.cat(xs), "measurement": torch.cat(ys)},
-            out / "training_pairs.pt",
-        )
+        payload = {
+            "target": torch.cat(xs, dim=0),
+            "measurement": torch.cat(ys, dim=0),
+            "operator": OmegaConf.to_container(cfg.operator, resolve=True),
+            "data": OmegaConf.to_container(cfg.data, resolve=True),
+            "seed": cfg.seed,
+        }
+
+        torch.save(payload, out / "training_pairs.pt")
         print(f"Saved {n} target/measurement pairs to training_pairs.pt")
         return
 
